@@ -1,1 +1,1 @@
-# JSC270_A3_YMENG
+# JSC270 Assignment 3 by Yuwei (Johnny) Meng
