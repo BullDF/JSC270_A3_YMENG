@@ -1,0 +1,20 @@
+---
+title: JSC270 Assignment 3
+author: Yuwei (Johnny) Meng
+date: 11 March 2023
+output: pdf_document
+---
+
+### Link to Notebook:
+
+### Link to GitHub Repo: 
+
+**a) Suppose you can only generate pairs of uniform random numbers between 0 and 1 (i.e. points within a unit square centered at (0.5, 0.5)). Describe a method to approximate $\pi$ by generating many pairs of these uniform random numbers. Implement your method in your notebook to obtain an estimate of $\pi$.**
+
+**Solution.** Given a unit square centered at (0.5, 0.5), the largest circle that can be fitted into the square is a circle centered at (0.5, 0.5) with radius 0.5. Hence, we can simulate many pairs, say 1000000, of uniform random numbers between 0 and 1, and compute the Euclidean distance between the generated point and the origin of the circle for each of them. If the distance is greater than 0.5, then the point is outside the circle. If the distance is within 0.5, then the point is inside the circle. We count the number of generated points that are inside the circle and divide by 1000000. Hopefully, the ratio approaches \(\pi/4\), which is the ratio between the area of the circle and the area of the unit square. Then we can multiply the ratio by 4 to get an approximation of \(\pi\).
+
+The approximated \(\pi\) is 3.143524, which is not too far from the real value of \(\pi\approx 3.1415926\).
+
+**b) How many pairs of uniform numbers did you generate in your implementation from (a) and why?  How close is your estimate to $\pi$?**
+
+**Solution.** I generated 1000000 pairs of uniform numbers. I chose this number because it's a large and round number so I could get an accurate approximation for \(\pi\).
