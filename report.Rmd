@@ -34,6 +34,8 @@ The approximated \(\pi\) is 3.143524, which is not too far from the real value o
 
 ### b) Make a plot of bias vs. sample size for the two estimators. What do you observe? Is this behavior expected?
 
+**Solution.**
+
 ```{r, message=FALSE, echo=FALSE, fig.height=5, fig.width=18}
 sample_sizes <- c(10, 25, 50, 100, 250, 500)
 bias1 <- c(-0.10678826806544484,
@@ -50,10 +52,10 @@ bias2 <- c(-0.4961094412589002,
     0.0013252918426989169)
 p1 <- ggplot() + geom_line(aes(x = sample_sizes, y = abs(bias1))) + theme_bw() +
     geom_point(aes(x = sample_sizes, y = abs(bias1))) + xlab("Sample Size") +
-    ylab("Bias")
+    ylab("Bias") + ggtitle("Estimator with 1/(n-1)")
 p2 <- ggplot() + geom_line(aes(x = sample_sizes, y = abs(bias2))) + theme_bw() +
     geom_point(aes(x = sample_sizes, y = abs(bias2))) + xlab("Sample Size") +
-    ylab("Bias")
+    ylab("Bias") + ggtitle("Estimator with 1/n")
 layout <- rbind(c(1, 2))
 grid.arrange(grobs = list(p1, p2), ncol = 2, layout_matrix = layout)
 ```
@@ -62,9 +64,11 @@ Since there were negative biases and those were not comparable with the positive
 
 ### c) Which of the two estimators for \(\sigma^2\) do you prefer? Why?
 
-I think both estimators have their advantages, depending on the situation. It seems like for smaller samples (like 10, 25, 50, and 100), estimator 1 is doing a greater job than estimator 2 because the bias for estimator 1 is smaller than the bias for estimator 2. However, estimator 2 has smaller bias than estimator 1 when the sample size is larger (like 250 and 500). In other words, the bias for estimator 2 has a higher starting value but approaches 0 more quickly than estimator 1. Thus, it is important to determine the situation before deciding which estimator to use. In reality, I prefer estimator 2 because most of the time, we would have a large sample and in which case estimator 2 has a smaller bias than estimator 1.
+**Solution.** I think both estimators have their advantages, depending on the situation. It seems like for smaller samples (like 10, 25, 50, and 100), estimator 1 is doing a greater job than estimator 2 because the bias for estimator 1 is smaller than the bias for estimator 2. However, estimator 2 has smaller bias than estimator 1 when the sample size is larger (like 250 and 500). In other words, the bias for estimator 2 has a higher starting value but approaches 0 more quickly than estimator 1. Thus, it is important to determine the situation before deciding which estimator to use. In reality, I prefer estimator 2 because most of the time, we would have a large sample and in which case estimator 2 has a smaller bias than estimator 1.
 
 ### d) Write out the steps you would need to take to evaluate the bias of the slope parameter in a simple linear regression model with simulation. You do not need to implement the steps in your notebook, just write them out clearly so that someone could easily implement them if they wanted to.
+
+**Solution.**
 
 1. Since we don't usually know the true value of \(\beta_1\), we need to regard the slope estimate \(\hat\beta_1\) as the true value, given a simple linear model \(\hat y=\hat \beta_0+\hat \beta_1 x\).
 2. Know the distributions of \(x\) and \(y\).
@@ -79,4 +83,103 @@ I think both estimators have their advantages, depending on the situation. It se
 
 ### e) For part (d), what parameters do you need to specify to run your simulation? How would you go about specifying them?
 
-To run the simulation in part (d), we need to know the "true" value of \(\hat \beta_1\), which should be known if we want to simulate for this parameter. We also need to know the distributions of \(x\) and \(y\), which is the most difficult part. To specify these parameters, we can plot the distributions of \(x\) and \(y\) respectively and then evaluate the underlying distributions. We can compute the estimates for the parameters of those distributions using the given data. For example, if we believe \(x\) follows a normal distribution, then we can use the sample mean and sample variance as estimates to the true parameters \(\mu\) and \(\sigma^2\). The thing to be careful about is that if we specify the distributions wrong, then the bias might not be computed correctly.
+**Solution.** To run the simulation in part (d), we need to know the "true" value of \(\hat \beta_1\), which should be known if we want to simulate for this parameter. We also need to know the distributions of \(x\) and \(y\), which is the most difficult part. To specify these parameters, we can plot the distributions of \(x\) and \(y\) respectively and then evaluate the underlying distributions. We can compute the estimates for the parameters of those distributions using the given data. For example, if we believe \(x\) follows a normal distribution, then we can use the sample mean and sample variance as estimates to the true parameters \(\mu\) and \(\sigma^2\). The thing to be careful about is that if we specify the distributions wrong, then the bias might not be computed correctly.
+
+## Part 3: Simulation IRL
+
+### a) Read through this [tutorial](https://www.alpharithms.com/generating-artificial-time-series-data-with-pandas-in-python-272321/). Can you identify any weaknesses in the author's suggestion for how to generate data from a time series?
+
+**Solution.** The biggest weakness I would say is related to the dependency of the data. In reality, the reason we study time series data is to discover how time affects a particular variable. Hence, there must be some trend, if any, between the target variable and time. For example, as time moves forward, we would expect the height of a child increases because they grow. Nevertheless, the way that the author generates time series data is by using the `randint` function in `np.random`, which does not make sense since this function generates independent random integers. Plotting independent data against time is meaningless. Overall, generating dependent data is difficult because there are many unknown factors in real life that might affect the target variable other than time.
+
+### b) Read the following [article](https://ai.facebook.com/blog/a-facebook-scale-simulator-to-detect-harmful-behaviors/). Describe some advantages and disadvantages of Meta's simulator to detect harmful behavior.
+
+**Advantages:**
+
+- Able to automate interactions between millions of bots. This can model the complex social networks for achieving an accurate representation of reality.
+- Bots cannot interact with real people. This ensures that the simulation reflects actual use of Facebook while refraining from affecting real people.
+- This simulator integrates a variety of topics including software engineering, machine learning, programming languages, etc., so that it can model real life in an almost accurate way.
+
+**Disadvantages:**
+
+- Some complex interactions are impossible to predict. Thus, not all real-life situations can be simulated by this model.
+- Right now it's still at the research-only stage. It might take a long time before this simulator is of actual use in real life.
+
+### c) Watch this [video](https://www.youtube.com/watch?v=A0mvSAGMtoY) on IBM's Project Photoresist. Describe the problem the team at IBM wanted to solve and the role of simulation in this project. Can you think of any weakness in the team's approach? What do you like about their approach?
+
+**Solution.** The problem that the team at IBM wanted to solve was to discover a more sustainable photoacid generator. They found that the most common language among researchers is data, which led them to use data simulation as a method of research. While reviewing the literature, they found that many properties of the materials being studied were not publicly available in the literature, so they turned to data simulation for augmenting their data set in order to discover the unknown properties of the materials, such as the peg molecules. For the weakness, I was afraid that if they didn't know the properties of the materials, then the simulation might be run incorrectly. Probably this was not a problem for them because they definitely knew the underlying mechanisms of the materials, but this was my curiosity. I like how they used simulation to generate data when the public data were not ample, and how they incorporated AI into their research to make the process more efficient.
+
+## Part 4: Asymptotic Behavior
+
+### a) Plot the value of the empirical mean vs the sample size with a horizontal line at 2. What pattern do you observe? Is the pattern what you would expect? Why or why not? Would you expect the same pattern if you simulated from an exponential distribution with a different mean?
+
+**Solution.**
+
+```{r, echo=FALSE, message=FALSE, fig.width=8, fig.height=4}
+sample_sizes <- c(10, 25, 50, 100, 250, 500, 2000, 5000)
+sample_means <- c(1.4514646540514844,
+    1.3582303575806398,
+    2.1071993049721427,
+    1.8522096761599531,
+    1.8806538167920612,
+    2.0807505086588307,
+    1.994589465050996,
+    1.9927118876538945)
+ggplot() + geom_line(aes(x = sample_sizes, y = sample_means)) +
+    geom_point(aes(x = sample_sizes, y = sample_means)) + theme_bw() +
+    geom_hline(yintercept = 2, linetype = "dashed", color = "red") +
+    xlab("Sample Size") + ylab("Sample Mean")
+```
+
+```{r, echo=FALSE, message=FALSE, fig.width=8, fig.height=4}
+sample_sizes <- c(10, 25, 50, 100, 250, 500, 2000, 5000)
+sample_means <- c(1.9815468254059934,
+    1.998310349961797,
+    2.006918389222844,
+    1.997299427922113,
+    1.9984219630557318,
+    2.0006042993262882,
+    2.00087788254416,
+    1.9994270486053203)
+ggplot() + geom_line(aes(x = sample_sizes, y = sample_means)) +
+    geom_point(aes(x = sample_sizes, y = sample_means)) + theme_bw() +
+    geom_hline(yintercept = 2, linetype = "dashed", color = "red") +
+    xlab("Sample Size") + ylab("Sample Mean")
+```
+
+From the above plot, I observe that as the sample size increases, the sample mean approaches the true mean value of 2. This is expected because according to the *Law of Large Number*, the sample mean approaches the true mean as the sample size increases. I would expect the same pattern if I simulate with a different mean. The only thing that would change is the asymptote that the sample mean is approaching to.
+
+### b) Make a histogram of the 1000 empirical means for each sample size. What pattern do you observe? Is the pattern what you would expect? Why or why not?
+
+**Solution.**
+
+```{r, echo=FALSE, message=FALSE, fig.height=8, fig.width=10}
+df <- read.csv("4b_data.csv", header = FALSE)
+sample_sizes <- c(10, 25, 50, 100, 250, 500, 2000, 5000)
+par(mfrow = c(4, 2))
+par(mar = c(4, 4, 2, 1))  # Set the margin sizes
+par(oma = c(0, 0, 2, 0))  # Set the outer margin size
+for (i in 1:8) {
+    hist(x = as.numeric(unlist(df[i + 1])), xlab = "Sample Mean",
+        main = paste0("n = ", sample_sizes[i]))
+}
+```
+
+From the above plots, we can see that all plots have a peak at 0, but other values are unpredictable. For example, for \(n=10\), there is an observation with value at about -160000. This is expected because the expected value and the variance for the Cauchy distribution are both undefined, though the median is 0. That explains why we would get such extreme values even for small sample sizes but most data points centered at 0.
+
+## Part 5: Logistic Regression
+
+### a) Provide an interpretation of the slope parameter \(\beta_1\). Justify your interpretation. You can use a similar strategy to what was discussed in lecture for the interpretation of linear regression coefficients.
+
+**Solution.** On the log-odds scale, one unit increase in the predictor \(X\) is expected to result in \(\beta_1\) increase in the log-odds of the probability of success. This is because the log-odds is computed as
+\[\text{logit}(\pi)=\log\left(\frac{\pi}{1-\pi}\right)=\beta_0+\beta_1 X\]
+Treating this like a linear model, one unit increase in \(X\) is associated with \(\beta_1\) units increase in the log-odds.
+
+### b) Provide an interpretation of \(e^{\beta_1}\).
+
+**Solution.** The odds of the probability of success can be computed as
+\[\frac{\pi}{1-\pi}=\exp(\beta_0+\beta_1 X)=\exp(\beta_0)\exp(\beta_1 X)\]
+Thus, one unit increase in \(X\) is expected to multiply the odds of the probability of success by \(e^{\beta_1}\).
+
+### c) Suppose you are presenting the results of a simple logistic regression model to a collaborator who is not extremely familiar with data science (e.g. a clinician, product manager, etc). Would you present the estimate of \(\beta_1\) or \(e^{\beta_1}\) to explain the results of your model? Explain your reasoning.
+
+**Solution.** I would probably present the estimate of \(e^{\beta_1}\). Even though \(\beta_1\) is additive and \(e^{\beta_1}\) is multiplicative, \(e^{\beta_1}\) is a fixed number anyway. Using \(\beta_1\) to present involves explaining the log-odds to the client, which I think is an even harder topic to comprehend. Therefore, I would rather use \(e^{\beta_1}\) and explain how it has a multiplicative impact on the odds of the probability of success.
