@@ -5,9 +5,9 @@ date: 11 March 2023
 output: pdf_document
 ---
 
-### Link to Notebook:
+### Link to Notebook: https://github.com/BullDF/JSC270_A3_YMENG/blob/main/notebook.ipynb
 
-### Link to GitHub Repo: 
+### Link to GitHub Repo: https://github.com/BullDF/JSC270_A3_YMENG
 
 ```{r, message=FALSE, results=FALSE, echo=FALSE}
 library(gridExtra)
