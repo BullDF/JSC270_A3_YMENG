@@ -164,7 +164,7 @@ for (i in 1:8) {
 }
 ```
 
-From the above plots, we can see that all plots have a peak at 0, but other values are unpredictable. For example, for \(n=10\), there is an observation with value at about -160000. This is expected because the expected value and the variance for the Cauchy distribution are both undefined, though the median is 0. That explains why we would get such extreme values even for small sample sizes but most data points centered at 0.
+From the above plots, we can see that all plots have a peak at 0, but other values are unpredictable. For example, for \(n=10\), there is an observation with value at about \(-160000\). This is expected because the expected value and the variance for the Cauchy distribution are both undefined, though the median is 0. That explains why we would get such extreme values even for small sample sizes but most data points centered at 0.
 
 ## Part 5: Logistic Regression
 
@@ -180,6 +180,6 @@ Treating this like a linear model, one unit increase in \(X\) is associated with
 \[\frac{\pi}{1-\pi}=\exp(\beta_0+\beta_1 X)=\exp(\beta_0)\exp(\beta_1 X)\]
 Thus, one unit increase in \(X\) is expected to multiply the odds of the probability of success by \(e^{\beta_1}\).
 
-### c) Suppose you are presenting the results of a simple logistic regression model to a collaborator who is not extremely familiar with data science (e.g. a clinician, product manager, etc). Would you present the estimate of \(\beta_1\) or \(e^{\beta_1}\) to explain the results of your model? Explain your reasoning.
+### c) Suppose you are presenting the results of a simple logistic regression model to a collaborator who is not extremely familiar with data science (e.g. a clinician, product manager, etc.). Would you present the estimate of \(\beta_1\) or \(e^{\beta_1}\) to explain the results of your model? Explain your reasoning.
 
 **Solution.** I would probably present the estimate of \(e^{\beta_1}\). Even though \(\beta_1\) is additive and \(e^{\beta_1}\) is multiplicative, \(e^{\beta_1}\) is a fixed number anyway. Using \(\beta_1\) to present involves explaining the log-odds to the client, which I think is an even harder topic to comprehend. Therefore, I would rather use \(e^{\beta_1}\) and explain how it has a multiplicative impact on the odds of the probability of success.
