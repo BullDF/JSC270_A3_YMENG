@@ -5,7 +5,7 @@ date: 11 March 2023
 output: pdf_document
 ---
 
-### Link to Notebook: https://github.com/BullDF/JSC270_A3_YMENG/blob/main/notebook.ipynb
+### Link to Notebook: https://colab.research.google.com/drive/1zal4JQcdRFIpMibCZzjVtAqFnNeDsdZV?usp=sharing
 
 ### Link to GitHub Repo: https://github.com/BullDF/JSC270_A3_YMENG
 
@@ -127,7 +127,8 @@ sample_means <- c(1.4514646540514844,
 ggplot() + geom_line(aes(x = sample_sizes, y = sample_means)) +
     geom_point(aes(x = sample_sizes, y = sample_means)) + theme_bw() +
     geom_hline(yintercept = 2, linetype = "dashed", color = "red") +
-    xlab("Sample Size") + ylab("Sample Mean")
+    xlab("Sample Size") + ylab("Sample Mean") +
+    ggtitle("1 Sample for Each Sample Size")
 ```
 
 ```{r, echo=FALSE, message=FALSE, fig.width=8, fig.height=4}
@@ -143,7 +144,8 @@ sample_means <- c(1.9815468254059934,
 ggplot() + geom_line(aes(x = sample_sizes, y = sample_means)) +
     geom_point(aes(x = sample_sizes, y = sample_means)) + theme_bw() +
     geom_hline(yintercept = 2, linetype = "dashed", color = "red") +
-    xlab("Sample Size") + ylab("Sample Mean")
+    xlab("Sample Size") + ylab("Sample Mean") +
+    ggtitle("1000 Sample for Each Sample Size")
 ```
 
 From the above plot, I observe that as the sample size increases, the sample mean approaches the true mean value of 2. This is expected because according to the *Law of Large Number*, the sample mean approaches the true mean as the sample size increases. I would expect the same pattern if I simulate with a different mean. The only thing that would change is the asymptote that the sample mean is approaching to.
